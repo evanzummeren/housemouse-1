@@ -1,6 +1,14 @@
 <!doctype html>
-<html>
-	<head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Coding the Humanities: Housemouse</title>
+    <meta name="description" content="coding. humanities. together. It is not about programming, it is about the tools. Housemouse is a collaborative project by humanities students from diverse disciplines.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
 		<!-- Webcomponent polyfill to make polymer possible -->
 		<script src="vendor/platform.js"></script>
 
@@ -10,6 +18,7 @@
 
     <!-- The script that runs outside elements -->
     <script type="text/javascript" src="scripts/housemouse.js"></script>
+      <script type="text/javascript" src="scripts/scrollReveal.min.js"></script>
 
     <!-- The element include -->
     <!--
@@ -305,42 +314,151 @@ html /deep/ [segment], html /deep/ segment {
 
 <polymer-element name="single-house" attributes="image houseType" assetpath="elements/">
   <template>
+    <style>@font-face { 
+	font-family: NittyNormal; src: url(fonts/NN.woff) format('woff'); 
+}
+ @font-face { 
+ 	font-family: NittyBold; src: url(fonts/NB.woff) format('woff'); 
+ }
+body {
+	margin:0;
+}
+header {
+  background: #E5CF39;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.logowrapper {
+  text-align: left;
+}
+.housesarea {
+  width:100%;
+  background:#F5F5F5;
+}
+.logohouse {
+  margin-top: 5px;
+}
+.logomeantoyou {
+  margin-top: 5px;
+}
+ul {
+  float: right;
+  font-family: 'NittyNormal';
+  color: white;
+  font-size: 12px;
+  list-style-type: none;
+}
+.attributes {
+  width: 100%;
+  background: #e4e4e4;
+}
+.loginarea {
+  width: 100%;
+  height: 200px;
+  background: #F5F5F5;
+}
+.col-md-4 {
+  border-left: 3px solid;
+  border-color: black;
+}
+.chartarea {
+  width: 100%;
+  /*padding-left: 80px;*/
+  background: #DEDEDE;
+}
+.chart {
+  position:relative;
+  left:8%;
+}
+.searcharea {
+  width: 100%;
+  background: #F5F5F5;
+
+}
+.search {
+  margin: 50px;
+  text-align:center;
+}
+.footerarea {
+  width: 100%;
+  background-color: #F5F5F5;
+  padding: 10 0;
+  font-size: medium;
+  font-family: NittyNormal;
+  text-align: center;
+
+}
+a {
+  color: black;
+}
+ .housetype {
+    line-height: 300px;
+    border-left: 6px solid #E5CF39;
+}
+.housetype:last-child {
+    border-right: 6px solid #E5CF39;
+}
+.housetype:hover {
+    background-color: #e4e4e4;
+}
+</style>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
     <style>
       :host {
         display: inline-block;
-        padding: 50px;
       }
 
-      .imgHouse {
-        margin: 20px;
-        width: 180px;
-        padding: 12px;
-        border-radius: 10px;
+      div.housetypecontainer {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: #d9d9d9;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
       }
-
-      img:hover {
-        background: #E5CF39;
+      .choiceicon {
+        margin-top: 30px;
       }
-
-      .flat {
-        background: #E5CF39;
+      div.housetypecontainer:hover {
+        -webkit-animation-name: bganimation;
+        -webkit-animation-duration: .8s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
       }
-
-      .house {
-        background: #E34D2F;
+      @-webkit-keyframes bganimation {
+          0%   {background-color: #1e3a46}
+          50%  {background-color: #22404d}
+          100% {background-color: #1e3a46}
       }
-
-      .farm {
-        background: #75C7B3;
+      div.housetypecontainer:hover .choiceicon {
+        margin-top: 3px;
+        fill: white !important;
+        -webkit-animation-name: hoveranimation;
+        -webkit-animation-duration: .8s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
       }
-
+      @-webkit-keyframes hoveranimation {
+        0%   {margin-top: 0px}
+        50%  {margin-top: 10px}
+        100% {margin-top: 0px}
+      }
       .imgHouseChosen {
         background:#E5CF39;
       }
 
     </style>
     
-    <span><img id="highlightHouse" class="imgHouse" on-click="{{ setType }}" src="{{image.imageUrl}}"></span>
+    <div class="col-md-4 housetype">
+      <div class="housetypecontainer">
+
+      <img id="highlightHouse" class="choiceicon" on-click="{{ setType }}" src="{{image.imageUrl}}">
+
+      </div>
+    </div>
 
   </template>
 
@@ -352,9 +470,9 @@ html /deep/ [segment], html /deep/ segment {
       },
       houseTypeChanged: function (){
         if (this.houseType == this.image.type) {
-          this.shadowRoot.getElementById('highlightHouse').classList.add('imgHouseChosen');
+          this.shadowRoot.getElementById('highlightHouse').classList.add(' imgHouseChosen');
         } else { 
-          this.shadowRoot.getElementById('highlightHouse').classList.remove('imgHouseChosen');
+          this.shadowRoot.getElementById('highlightHouse').classList.remove(' imgHouseChosen');
         }  
       }
     });
@@ -514,8 +632,95 @@ html /deep/ [segment], html /deep/ segment {
 <polymer-element name="user-login" attributes="userInfo" assetpath="elements/">
 
   <template>
-    <style>
+    <style>@font-face { 
+	font-family: NittyNormal; src: url(fonts/NN.woff) format('woff'); 
+}
+ @font-face { 
+ 	font-family: NittyBold; src: url(fonts/NB.woff) format('woff'); 
+ }
+body {
+	margin:0;
+}
+header {
+  background: #E5CF39;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.logowrapper {
+  text-align: left;
+}
+.housesarea {
+  width:100%;
+  background:#F5F5F5;
+}
+.logohouse {
+  margin-top: 5px;
+}
+.logomeantoyou {
+  margin-top: 5px;
+}
+ul {
+  float: right;
+  font-family: 'NittyNormal';
+  color: white;
+  font-size: 12px;
+  list-style-type: none;
+}
+.attributes {
+  width: 100%;
+  background: #e4e4e4;
+}
+.loginarea {
+  width: 100%;
+  height: 200px;
+  background: #F5F5F5;
+}
+.col-md-4 {
+  border-left: 3px solid;
+  border-color: black;
+}
+.chartarea {
+  width: 100%;
+  /*padding-left: 80px;*/
+  background: #DEDEDE;
+}
+.chart {
+  position:relative;
+  left:8%;
+}
+.searcharea {
+  width: 100%;
+  background: #F5F5F5;
 
+}
+.search {
+  margin: 50px;
+  text-align:center;
+}
+.footerarea {
+  width: 100%;
+  background-color: #F5F5F5;
+  padding: 10 0;
+  font-size: medium;
+  font-family: NittyNormal;
+  text-align: center;
+
+}
+a {
+  color: black;
+}
+ .housetype {
+    line-height: 300px;
+    border-left: 6px solid #E5CF39;
+}
+.housetype:last-child {
+    border-right: 6px solid #E5CF39;
+}
+.housetype:hover {
+    background-color: #e4e4e4;
+}
+</style>
+    <style>
     .loginButton {
       display: block;
       width: 400px;
@@ -1788,86 +1993,71 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <polymer-element name="cth-housemouse" noscript="" assetpath="elements/">
 	<template>
-    <style>header {
-  height:160px;
-  background:#E5CF39;
-  text-align: center;
+    <style>@font-face { 
+	font-family: NittyNormal; src: url(fonts/NN.woff) format('woff'); 
+}
+ @font-face { 
+ 	font-family: NittyBold; src: url(fonts/NB.woff) format('woff'); 
+ }
+body {
+	margin:0;
+}
+header {
+  background: #E5CF39;
   padding-top: 40px;
-  font-family: NittyBold;
-  font-size: x-large;
-  letter-spacing: -3px;
+  padding-bottom: 40px;
 }
-
-h1 {
-  background: black;
-  color: #E5CF39;
+.logowrapper {
+  text-align: left;
 }
-
-.centerer {
-  width:1050px;
-  margin: 0 auto;
-}
-
 .housesarea {
   width:100%;
-  height: 600px;
   background:#F5F5F5;
 }
-
-.piearea {
-  width:100%;
-  background-color: #DEDEDE;
-  padding:100px 0px;
-  height:400px;
+.logohouse {
+  margin-top: 5px;
 }
-
-.pietext {
-  position:relative;
-  left:7%;
-  width:43%;
-  float:left;
-  margin-right:10%;
-  font-family: NittyNormal;
-  font-size: large;
-
+.logomeantoyou {
+  margin-top: 5px;
 }
-
-.bigpie {
-  position:relative;
-  left: 7%;
-  width:50%;
-
+ul {
+  float: right;
+  font-family: 'NittyNormal';
+  color: white;
+  font-size: 12px;
+  list-style-type: none;
 }
-
+.attributes {
+  width: 100%;
+  background: #e4e4e4;
+}
 .loginarea {
   width: 100%;
   height: 200px;
   background: #F5F5F5;
-
 }
-
+.col-md-4 {
+  border-left: 3px solid;
+  border-color: black;
+}
 .chartarea {
   width: 100%;
   /*padding-left: 80px;*/
   background: #DEDEDE;
 }
-
 .chart {
   position:relative;
   left:8%;
 }
-
 .searcharea {
   width: 100%;
   background: #F5F5F5;
 
 }
-
 .search {
   margin: 50px;
   text-align:center;
 }
-
 .footerarea {
   width: 100%;
   background-color: #F5F5F5;
@@ -1877,24 +2067,27 @@ h1 {
   text-align: center;
 
 }
-
 a {
   color: black;
 }
-
+ .housetype {
+    line-height: 300px;
+    border-left: 6px solid #E5CF39;
+}
+.housetype:last-child {
+    border-right: 6px solid #E5CF39;
+}
+.housetype:hover {
+    background-color: #e4e4e4;
+}
 </style>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
-	<header>
-    <div class="centerer">
-      <h1>What does 'House' mean to you?</h1>
-    </div>
-	</header>
-
+    <div class="wrapper">
 	<section class="housesarea">
-    <div class="centerer">
       <combine-vote singlevote="{{ singleVote }}"></combine-vote>
-    </div>
 	</section>
+	</div>
 		
 	
 	<db-save combinedvote="{{ singleVote }}"></db-save>
@@ -1919,18 +2112,68 @@ a {
 
 
 
+    <!-- CSS FILES -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
-    <style type="text/css">
-      @font-face { font-family: NittyNormal; src: url(fonts/NN.woff) format('woff'); }
-      @font-face { font-family: NittyBold; src: url(fonts/NB.woff) format('woff'); }
-
-      body {
-        margin:0;
-      }
-   </style>
+    <style>
+    header {
+        height: 600px !important;
+    }
+    .logowrapper {
+        margin-top: 100px;
+    }
+    img.logowhatdoes {
+        width: 460px;
+    }
+    img.logohouse {
+        width: 297px;
+    }
+    img.logomeantoyou {
+        width: 537px;
+    }
+    </style>
           
   </head>
     <body>
+    <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+        <!--kopie-->
+     <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="logowrapper">
+                        <img data-scroll-reveal="enter from bottom 10px over .8s after 0.3s" class="logowhatdoes" src="../images/whatdoes.svg">
+                        <img data-scroll-reveal="enter from bottom 10px over .9s after 1s" class="logohouse" src="../images/house.svg">
+                        <img data-scroll-reveal="enter from bottom 10px over .9s after 1.5s" class="logomeantoyou" src="../images/meantoyou.svg">
+                    </div>
+                </div>
+                <div class="col-md-9 menuarea">
+                    <ul>
+                        <li>// pick</li>
+                        <li>// map</li>
+                        <li>// stats</li>
+                        <li>// disclaimer</li>
+                    </ul>
+                </div>
+        </div>
+    </div></header>
+
+
      	<cth-housemouse></cth-housemouse>
+
+        <script>
+        window.scrollReveal = new scrollReveal();
+
+        $(window).load(function () {
+           $('body').delay(3000)
+             .animate({
+              'scrollTop': $('cth-housemouse').offset().top}, 900
+              ); 
+        });
+    </script>
 	 </body>
 </html>

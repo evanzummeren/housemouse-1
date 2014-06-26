@@ -1,0 +1,41 @@
+<link rel="import" href="../vendor/polymer/polymer.html">
+
+<link rel="import" href="combine-vote.html">
+<link rel="import" href="db-save.html">
+<link rel="import" href="db-retrieve.html"> 
+<link rel="import" href="stat-widget.html">
+
+<link rel="import" href="map-element.html">
+
+<polymer-element name="cth-housemouse" noscript>
+	<template>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+    <div class="wrapper">
+	<section class="housesarea">
+      <combine-vote singleVote="{{ singleVote }}"></combine-vote>
+	</section>
+	</div>
+		
+	
+	<db-save combinedvote="{{ singleVote }}"></db-save>
+	<db-retrieve publishedData="{{retrieved}}"></db-retrieve>
+
+	<section class="chartarea">
+    <div class="centerer">	
+      <map-element class="chart" data="{{retrieved}}"></map-element>
+    </div>
+	</section>
+
+  <stat-widget vote="{{ singleVote }}"></stat-widget>
+
+	<section class="footerarea">	
+		<div class="centerer">	
+			<a href="disclaimer.html" class="footer"> disclaimer </a>	
+		<div>
+	</section>
+
+	</template>
+</polymer-element>
+

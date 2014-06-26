@@ -1,41 +1,63 @@
 <polymer-element name="single-house" attributes="image houseType">
   <template>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
     <style>
       :host {
         display: inline-block;
-        padding: 50px;
       }
 
-      .imgHouse {
-        margin: 20px;
-        width: 180px;
-        padding: 12px;
-        border-radius: 10px;
+      div.housetypecontainer {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background-color: #d9d9d9;
+        text-align: center;
+        margin: 0 auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
       }
-
-      img:hover {
-        background: #E5CF39;
+      .choiceicon {
+        margin-top: 30px;
       }
-
-      .flat {
-        background: #E5CF39;
+      div.housetypecontainer:hover {
+        -webkit-animation-name: bganimation;
+        -webkit-animation-duration: .8s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
       }
-
-      .house {
-        background: #E34D2F;
+      @-webkit-keyframes bganimation {
+          0%   {background-color: #1e3a46}
+          50%  {background-color: #22404d}
+          100% {background-color: #1e3a46}
       }
-
-      .farm {
-        background: #75C7B3;
+      div.housetypecontainer:hover .choiceicon {
+        margin-top: 3px;
+        fill: white !important;
+        -webkit-animation-name: hoveranimation;
+        -webkit-animation-duration: .8s;
+        -webkit-animation-timing-function: linear;
+        -webkit-animation-iteration-count: infinite;
       }
-
+      @-webkit-keyframes hoveranimation {
+        0%   {margin-top: 0px}
+        50%  {margin-top: 10px}
+        100% {margin-top: 0px}
+      }
       .imgHouseChosen {
         background:#E5CF39;
       }
 
     </style>
     
-    <span><img id="highlightHouse" class="imgHouse" on-click="{{ setType }}" src="{{image.imageUrl}}"></span>
+    <div class="col-md-4 housetype">
+      <div class="housetypecontainer">
+
+      <img id="highlightHouse" class="choiceicon" on-click="{{ setType }}" src="{{image.imageUrl}}">
+
+      </div>
+    </div>
 
   </template>
 
@@ -47,9 +69,9 @@
       },
       houseTypeChanged: function (){
         if (this.houseType == this.image.type) {
-          this.shadowRoot.getElementById('highlightHouse').classList.add('imgHouseChosen');
+          this.shadowRoot.getElementById('highlightHouse').classList.add(' imgHouseChosen');
         } else { 
-          this.shadowRoot.getElementById('highlightHouse').classList.remove('imgHouseChosen');
+          this.shadowRoot.getElementById('highlightHouse').classList.remove(' imgHouseChosen');
         }  
       }
     });

@@ -1,6 +1,14 @@
 <!doctype html>
-<html>
-	<head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Coding the Humanities: Housemouse</title>
+    <meta name="description" content="coding. humanities. together. It is not about programming, it is about the tools. Housemouse is a collaborative project by humanities students from diverse disciplines.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/images/favicon.ico">
+
 		<!-- Webcomponent polyfill to make polymer possible -->
 		<script src="./vendor/platform.js"></script>
 
@@ -10,22 +18,73 @@
 
     <!-- The script that runs outside elements -->
     <script type="text/javascript" src="./scripts/housemouse.js"></script>
+      <script type="text/javascript" src="./scripts/scrollReveal.min.js"></script>
 
     <!-- The element include -->
-    <link rel="import" href="./elements/umbrella-element.html">
+    <link rel="import" href="./elements/cth-housemouse.html">
 
+    <!-- CSS FILES -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 
-    <style type="text/css">
-      @font-face { font-family: NittyNormal; src: url('./fonts/NN.woff') format('woff'); }
-      @font-face { font-family: NittyBold; src: url('./fonts/NB.woff') format('woff'); }
-
-      body {
-        margin:0;
-      }
-   </style>
+    <style>
+    header {
+        height: 600px !important;
+    }
+    .logowrapper {
+        margin-top: 100px;
+    }
+    img.logowhatdoes {
+        width: 460px;
+    }
+    img.logohouse {
+        width: 297px;
+    }
+    img.logomeantoyou {
+        width: 537px;
+    }
+    </style>
           
   </head>
     <body>
+    <!--[if lt IE 8]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+        <!--kopie-->
+     <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="logowrapper">
+                        <img data-scroll-reveal="enter from bottom 10px over .8s after 0.3s" class="logowhatdoes" src="../images/whatdoes.svg"/>
+                        <img data-scroll-reveal="enter from bottom 10px over .9s after 1s" class="logohouse" src="../images/house.svg"/>
+                        <img data-scroll-reveal="enter from bottom 10px over .9s after 1.5s" class="logomeantoyou" src="../images/meantoyou.svg"/>
+                    </div>
+                </div>
+                <div class="col-md-9 menuarea">
+                    <ul>
+                        <li>// pick</li>
+                        <li>// map</li>
+                        <li>// stats</li>
+                        <li>// disclaimer</li>
+                    </ul>
+                </div>
+        </div>
+    </header>
+
+
      	<cth-housemouse></cth-housemouse>
+
+        <script>
+        window.scrollReveal = new scrollReveal();
+
+        $(window).load(function () {
+           $('body').delay(3000)
+             .animate({
+              'scrollTop': $('cth-housemouse').offset().top}, 900
+              ); 
+        });
+    </script>
 	 </body>
 </html>
